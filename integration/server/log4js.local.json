@@ -1,0 +1,32 @@
+{
+  "disableClustering": true,
+  "appenders": {
+    "file": {
+      "type": "file",
+      "filename": "log/app.log",
+      "maxLogSize": 20480,
+      "backups": 3,
+      "layout": {
+        "type": "pattern",
+        "pattern": "%d{ISO8601} %-5p %c - %m"
+      }
+    },
+    "console": {
+      "type": "console"
+    }
+  },
+  "categories": {
+    "default": {
+      "appenders": [
+        "console"
+      ],
+      "level": "TRACE"
+    },
+    "file": {
+      "appenders": [
+        "file"
+      ],
+      "level": "TRACE"
+    }
+  }
+}

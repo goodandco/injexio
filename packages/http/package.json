@@ -1,0 +1,20 @@
+{
+  "name": "@injexio/http",
+  "version": "1.0.0",
+  "description": "HTTP package",
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "source-map-support": "^0.5.21"
+  }
+}

@@ -1,0 +1,12 @@
+initialDependency: "server"
+initialTimeout: 5000,
+
+dependencies:
+  - id: server
+    className: Component.Server
+    dependencies:
+      - Middlewares
+    arguments:
+      - testMode: true
+  - id: Middlewares
+    className: Component.DependencyList
