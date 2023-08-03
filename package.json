@@ -41,7 +41,7 @@
     "test:integration": "mocha \"integration/*/{,!(node_modules)/**/}/*.spec.ts\"",
     "publish": "npm run build:prod && ./node_modules/.bin/lerna publish --force-publish --no-private",
     "prepublishOnly": "npm run changelog | pbcopy",
-    "publish:beta": "npm run build:prod && ./node_modules/.bin/lerna publish --canary --preid beta --no-private --yes --registry https://registry.npmjs.org/",
+    "publish:beta": "npm run build:prod && ./node_modules/.bin/lerna publish --force-publish --canary --preid beta --no-private --yes --registry https://registry.npmjs.org/",
     "publish:next": "npm run build:prod && ./node_modules/.bin/lerna publish --canary --preid next --no-private",
     "publish:rc": "npm run build:prod && ./node_modules/.bin/lerna publish --canary --preid rc --no-private"
   },
