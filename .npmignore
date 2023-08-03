@@ -1,10 +1,19 @@
 # source
 **/*.ts
 *.ts
+**/*.js.map
+*.js.map
+packages/**/*.ts
+packages/*.ts
+packages/**/*.js.map
+packages/*.js.map
+
 
 # definitions
 !**/*.d.ts
 !*.d.ts
+!packages/**/*.d.ts
+!packages/*.d.ts
 
 # configuration
 package-lock.json
