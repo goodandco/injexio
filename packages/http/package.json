@@ -24,6 +24,6 @@
   },
   "devDependencies": {},
   "peerDependencies": {
-    "@injexio/core": "^1.0.0"
+    "@injexio/core": "^0.0.1"
   }
 }
