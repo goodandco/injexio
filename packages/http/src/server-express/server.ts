@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { Express, Request, Response } from 'express';
+import { Express } from 'express';
 import { Base } from '@injexio/core';
 import { IMiddleware, IServer } from '../interfaces';
 

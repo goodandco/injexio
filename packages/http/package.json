@@ -1,20 +1,29 @@
 {
   "name": "@injexio/http",
   "version": "1.0.0",
-  "description": "HTTP package",
+  "description": "HTTP package for @injexio",
+  "author": "Oleksandr Hudenko <oleksandr.hudenko@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "injexio",
+    "http",
+    "rest"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/goodandco/injexio.git",
+    "directory": "packages/http"
+  },
   "main": "index.js",
   "typings": "index.d.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "publishConfig": {
+    "access": "public"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "express": "^4.18.2"
   },
-  "devDependencies": {
-    "@types/express": "^4.17.17",
-    "source-map-support": "^0.5.21"
+  "devDependencies": {},
+  "peerDependencies": {
+    "@injexio/core": "^1.0.0"
   }
 }

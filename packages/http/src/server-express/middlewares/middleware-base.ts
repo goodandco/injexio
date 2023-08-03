@@ -6,7 +6,8 @@ export class MiddlewareBase extends Base implements IMiddleware {
     return 'before';
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async setup(source: IMiddlewareSource): Promise<void> {
-    await Promise.resolve();
+    // should be implemented in successor
   }
 }

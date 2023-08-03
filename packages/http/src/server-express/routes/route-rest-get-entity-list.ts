@@ -6,8 +6,8 @@ type TRESTResponseData<TItem> = {
   error?: string;
 };
 
-export class RouteRESTGetEntityList<
+export class RouteRESTGetEntityList<TItem, TSearchParams> extends RouteGet<
   TItem,
   TSearchParams,
-  TResponseData = TRESTResponseData<TItem>,
-> extends RouteGet<TItem, TSearchParams, TRESTResponseData<TItem>> {}
+  TRESTResponseData<TItem>
+> {}

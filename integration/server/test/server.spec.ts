@@ -7,7 +7,6 @@ import * as path from 'path';
 import DependencyMap from '../src/classMap';
 import * as request from 'supertest';
 import { IServer } from '@injexio/http';
-import 'source-map-support/register';
 import { configure } from 'log4js';
 
 configure(path.resolve(__dirname, '../log4js.json'));

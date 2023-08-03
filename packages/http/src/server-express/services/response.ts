@@ -3,14 +3,14 @@ import { IServiceResponse } from '../../interfaces';
 import { Response } from 'express';
 
 export class ResponseService<T> extends Base implements IServiceResponse<T> {
-  ok<TResponseData>(response: Response, payload: any): void {
+  ok(response: Response<T>, payload: any): void {
     response.json(payload);
     response.end();
   }
 
   error(response: Response, error: Error): void {
-    response.status(500);
     response.json({
+      status: 200,
       error: error.message,
     });
     response.end();

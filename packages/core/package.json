@@ -1,14 +1,25 @@
 {
   "name": "@injexio/core",
   "version": "1.0.0",
-  "description": "Core package",
+  "description": "Core package for @injexio",
+  "author": "Oleksandr Hudenko <oleksandr.hudenko@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "injexio",
+    "core"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/goodandco/injexio.git",
+    "directory": "packages/core"
+  },
   "main": "index.js",
   "typings": "index.d.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "publishConfig": {
+    "access": "public"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "log4js": "^6.9.1"
+  }
 }

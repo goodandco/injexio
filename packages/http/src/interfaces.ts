@@ -38,7 +38,7 @@ export interface IServiceData<T> {
 }
 
 export interface IServiceResponse<TResponseData> {
-  ok<TResponseData>(response: Response, payload: any): void;
+  ok(response: Response<TResponseData>, payload: any): void;
 
   error(response: Response, error: Error): void;
 }

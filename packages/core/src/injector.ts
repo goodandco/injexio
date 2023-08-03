@@ -1,6 +1,6 @@
 import { TDependency, TInjectionConfig } from './types';
 import { IBase } from './interfaces';
-import { getLogger, Logger } from 'log4js';
+import { getLogger } from 'log4js';
 
 const logger = getLogger(`[Injector]`);
 

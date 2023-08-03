@@ -2,7 +2,27 @@
   "name": "injexio",
   "version": "1.0.0",
   "description": "Framework based on Dependency Injection, allowed to run your components with just declarative way",
-  "main": "index.js",
+  "author": "Oleksandr Hudenko <oleksandr.hudenko@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "typescript",
+    "node.js",
+    "javascript",
+    "framework",
+    "dependency",
+    "injection"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goodandco/injexio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/goodandco/injexio/issues"
+  },
+  "homepage": "https://github.com/goodandco/injexio#readme",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "build": "tsc -b -v packages",
     "prebuild": "npm run clean",
@@ -19,38 +39,18 @@
     "format": "prettier \"**/*.ts\" \"packages/**/*.json\" --ignore-path ./.prettierignore --write && git status",
     "test": "mocha packages/**/*.spec.ts",
     "test:integration": "mocha \"integration/*/{,!(node_modules)/**/}/*.spec.ts\"",
-    "publish": "npm run prerelease && npm run build:prod && ./node_modules/.bin/lerna publish --force-publish --access public --exact -m \"chore(@goodandco/injexio) publish %s release\"",
+    "publish": "npm run build:prod && ./node_modules/.bin/lerna publish --force-publish --access public --exact -m \"chore(@goodandco/injexio) publish %s release\"",
     "prepublishOnly": "npm run changelog | pbcopy",
-    "publish:beta": "npm run build:prod && ./node_modules/.bin/lerna publish --npm-tag=beta --access public -m \"chore(@goodandco/injexio) publish %s release\"",
-    "publish:next": "npm run build:prod && ./node_modules/.bin/lerna publish --npm-tag=next --access public --skip-git -m \"chore(@goodandco/injexio) publish %s release\"",
-    "publish:rc": "npm run build:prod && ./node_modules/.bin/lerna publish --npm-tag=rc --access public -m \"chore(@goodandco/injexio) publish %s release\"",
-    "publish:test": "npm run build:prod && ./node_modules/.bin/lerna publish --force-publish --access public --npm-tag=test --skip-git -m \"chore(@goodandco/injexio) publish %s release\""
+    "publish:beta": "npm run build:prod && ./node_modules/.bin/lerna publish --npm-tag=beta --access public -m \"chore(@injexio) publish %s release\"",
+    "publish:next": "npm run build:prod && ./node_modules/.bin/lerna publish --npm-tag=next --access public --skip-git -m \"chore(@injexio) publish %s release\"",
+    "publish:rc": "npm run build:prod && ./node_modules/.bin/lerna publish --npm-tag=rc --access public -m \"chore(@injexio) publish %s release\"",
+    "publish:test": "npm run build:prod && ./node_modules/.bin/lerna publish --force-publish --access public --npm-tag=test --skip-git -m \"chore(@injexio) publish %s release\""
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/goodandco/injexio.git"
-  },
-  "keywords": [
-    "typescript",
-    "node.js",
-    "javascript",
-    "framework",
-    "dependency",
-    "injection"
-  ],
-  "author": "Oleksandr Hudenko <oleksandr.hudenko@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/goodandco/injexio/issues"
-  },
-  "homepage": "https://github.com/goodandco/injexio#readme",
-  "workspaces": [
-    "packages/*"
-  ],
   "dependencies": {
     "js-yaml": "^4.1.0",
     "tslib": "2.6.1",
-    "log4js": "^6.9.1"
+    "log4js": "^6.9.1",
+    "express": "^4.18.2"
   },
   "devDependencies": {
     "lerna": "^7.1.4",
@@ -64,14 +64,14 @@
     "eslint": "8.46.0",
     "eslint-config-prettier": "8.9.0",
     "eslint-plugin-import": "2.28.0",
+    "eslint-plugin-prettier": "^5.0.0",
     "mocha": "10.2.0",
     "sinon": "15.2.0",
     "ts-node": "10.9.1",
     "typescript": "5.1.6",
     "supertest": "6.3.3",
     "concurrently": "8.2.0",
-    "prettier": "3.0.0",
-    "source-map-support": "^0.5.21"
+    "prettier": "3.0.0"
   },
   "mocha": {
     "require": [

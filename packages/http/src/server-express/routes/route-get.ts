@@ -56,7 +56,7 @@ export class RouteGet<TServiceData, TSearchParams, TResponseData>
     try {
       const searchParams = await this.inputService.findOne<Request>(request);
       const data = await this.dataService.find<TSearchParams>(searchParams);
-      this.responseService.ok<TResponseData>(response, data);
+      this.responseService.ok(response, data);
     } catch (error) {
       this.responseService.error(response, error);
     }
