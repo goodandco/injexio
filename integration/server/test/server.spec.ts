@@ -1,8 +1,16 @@
-import { ConfigLoader, DependencyInjector, TInjectionConfig } from '@injexio/core';
+import {
+  ConfigLoader,
+  DependencyInjector,
+  TInjectionConfig,
+} from '@injexio/core';
 import * as path from 'path';
 import DependencyMap from '../src/classMap';
 import * as request from 'supertest';
 import { IServer } from '@injexio/http';
+import 'source-map-support/register';
+import { configure } from 'log4js';
+
+configure(path.resolve(__dirname, '../log4js.json'));
 
 describe('Server tests', () => {
   it('should be ok', async () => {
@@ -11,11 +19,13 @@ describe('Server tests', () => {
       configNameList: [configPath],
     });
     baseInjection.classMap = DependencyMap;
-    const app: IServer = await DependencyInjector.create(baseInjection);
+    const app: IServer = await DependencyInjector.create<IServer>(
+      baseInjection,
+    );
 
     return request(app.getServer())
-      .get('/')
+      .get('/books')
       .expect(200)
-      .expect('Test Server');
+      .expect(['book1', 'book2']);
   });
 });

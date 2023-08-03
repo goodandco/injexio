@@ -1,8 +1,8 @@
 import { IBase } from './interfaces';
 
-export class DependencyList extends Array implements IBase {
+export class DependencyList<T> extends Array<T> implements IBase {
   async init(): Promise<void> {
-     return Promise.resolve();
+    return undefined;
   }
 
   getTag(): string {

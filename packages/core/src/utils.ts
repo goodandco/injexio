@@ -1,14 +1,20 @@
-function clone<T = any>(value: T) {
+import * as path from 'path';
+import { existsSync } from 'fs';
+
+export function clone<T = any>(value: T) {
   return value && !isPrimitive(value)
     ? JSON.parse(JSON.stringify(value))
     : value;
 }
 
-function isPrimitive<T = any>(value: T): boolean {
-  return ["number", "string", "boolean"].includes(typeof value);
+export function isPrimitive<T = any>(value: T): boolean {
+  return ['number', 'string', 'boolean'].includes(typeof value);
 }
 
-function mergeArrays(destination: Array<any>, source: Array<any>): Array<any> {
+export function mergeArrays(
+  destination: Array<any>,
+  source: Array<any>,
+): Array<any> {
   const result = clone<Array<any>>(destination);
   for (let i = 0; i < source.length; i++) {
     const sourceValue = source[i];
@@ -26,14 +32,14 @@ function mergeArrays(destination: Array<any>, source: Array<any>): Array<any> {
   return result;
 }
 
-function mergeObjects(destination, source) {
+export function mergeObjects(destination, source) {
   if (!source) {
     return destination;
   }
 
   const result = clone(destination) || {};
 
-  Object.keys(source).forEach((property) => {
+  Object.keys(source).forEach(property => {
     const sourceValue = source[property];
 
     if (!Reflect.has(result, property)) {
@@ -58,7 +64,7 @@ function mergeObjects(destination, source) {
   return result;
 }
 
-export default function deepMerge(...objects) {
+export function deepMerge(...objects) {
   if (!objects.length) {
     return {};
   }
@@ -72,4 +78,38 @@ export default function deepMerge(...objects) {
   const result = mergeObjects(destination, source);
 
   return deepMerge(result, ...objects);
+}
+
+export function buildPath(fileName: string): string {
+  if (fileName[0] === '/') {
+    return fileName;
+  }
+  const baseDir = global.__baseDir || './';
+  return path.join(baseDir, fileName);
+}
+
+export function checkFileExisting(filePathName: string): boolean {
+  try {
+    return existsSync(filePathName);
+  } catch (err) {
+    return false;
+  }
+}
+
+export function replaceEnvVars(content): string {
+  return content.replace(/\${([A-Z0-9_]+(|[^}]+)?)}/gi, (_, entry) => {
+    // eslint-disable-next-line prefer-const
+    let [name, defaultValue] = entry.split('|');
+    name = name.trim();
+
+    if (process.env[name]) {
+      return process.env[name];
+    }
+
+    if (defaultValue) {
+      return defaultValue.trim();
+    }
+
+    throw new Error(`Env variable '${name}' is not set`);
+  });
 }

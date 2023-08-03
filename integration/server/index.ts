@@ -12,7 +12,7 @@ import * as path from 'path';
 
 global.__baseDir = __dirname.replace('/dist', '');
 
-configure('./log4js.local.json');
+// configure('./log4js.local.json');
 
 async function main(): Promise<void> {
   const baseInjection: TInjectionConfig = ConfigLoader.load({

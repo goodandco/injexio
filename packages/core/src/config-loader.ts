@@ -1,94 +1,67 @@
-import { readFileSync, existsSync } from 'fs';
+import { readFileSync } from 'fs';
+import { getLogger } from 'log4js';
 import * as yaml from 'js-yaml';
-import * as path from 'path';
-import deepMerge from './utils';
+import {
+  buildPath,
+  checkFileExisting,
+  deepMerge,
+  replaceEnvVars,
+} from './utils';
 import { TInjectionConfig, TConfigModuleOptions } from './types';
 
-let CONFIG: TInjectionConfig | null = null;
+const logger = getLogger(`[ConfigLoader]`);
+const { NODE_ENV = 'default', DEBUG_MODE = '0' } = process.env;
 
 export class ConfigLoader {
-  static read(
-    configPathName: string,
-  ): TInjectionConfig | Partial<TInjectionConfig> {
-    try {
-      return yaml.load(
-        ConfigLoader.replaceEnvVars(readFileSync(configPathName, 'utf8')),
-      ) as TInjectionConfig;
-    } catch (err) {
-      console.log('And error happened while reading config: ', err.message);
-      return {} as Partial<TInjectionConfig>;
-    }
-  }
-
-  static replaceEnvVars(content): string {
-    return content.replace(/\${([A-Z0-9_]+(|[^}]+)?)}/gi, (_, entry) => {
-      // eslint-disable-next-line prefer-const
-      let [name, defaultValue] = entry.split('|');
-      name = name.trim();
-
-      if (process.env[name]) {
-        return process.env[name];
-      }
-
-      if (defaultValue) {
-        return defaultValue.trim();
-      }
-
-      throw new Error(`Env variable '${name}' is not set`);
-    });
-  }
-
   static load(options: TConfigModuleOptions): TInjectionConfig {
-    const { configNameList = null } = options;
+    const configFileNames = ConfigLoader.calculateConfigFileNames(options);
+    return ConfigLoader.loadByConfigFileNames(configFileNames);
+  }
 
-    if (CONFIG) {
-      return CONFIG;
-    }
-    const { NODE_ENV: env = 'default' } = process.env;
-    console.log('NODE_ENV ', env);
+  static calculateConfigFileNames(options: TConfigModuleOptions) {
+    const { configNameList = null } = options;
     const defaultConfig = `/config/config.yaml`;
-    const defaultEnvConfig = `/config/config.${env}.yaml`;
+    const defaultEnvConfig = `/config/config.${NODE_ENV}.yaml`;
 
     const defaultConfigNameList = process.argv.includes('--configPath')
       ? [process.argv[process.argv.indexOf('--configPath') + 1]]
       : [defaultConfig, defaultEnvConfig];
 
-    const list = configNameList || defaultConfigNameList;
-    const configList = list
-      .map(configName => ConfigLoader.buildPath(configName))
-      .filter(configPathName => ConfigLoader.checkFileExisting(configPathName))
-      .map((configPathName: string) =>
-        ConfigLoader.read(configPathName),
-      ) as Array<TInjectionConfig>;
-
-    CONFIG = deepMerge(...configList.reverse());
-    console.log(JSON.stringify(CONFIG));
-    return CONFIG;
+    return (configNameList || defaultConfigNameList)
+      .map(configName => buildPath(configName))
+      .filter(configPathName => checkFileExisting(configPathName));
   }
 
-  static buildPath(fileName: string): string {
-    if (fileName[0] === '/') {
-      return fileName;
+  static loadByConfigFileNames(
+    configFileNameList: Array<string>,
+  ): TInjectionConfig {
+    const configList = configFileNameList.map((configPathName: string) =>
+      ConfigLoader.read(configPathName),
+    ) as Array<TInjectionConfig>;
+
+    const result: TInjectionConfig = deepMerge(...configList.reverse());
+
+    if (DEBUG_MODE === '1') {
+      logger.info('NODE_ENV ' + NODE_ENV);
+      logger.info(
+        `Considered config files: \n -` + configFileNameList.join(',\n - '),
+      );
+      logger.info(`Result config: \n${JSON.stringify(result, null, 2)}`);
     }
-    const baseDir = global.__baseDir || './';
-    const configpath = path.join(baseDir, fileName);
-    return configpath;
+
+    return result;
   }
 
-  static checkFileExisting(filePathName: string): boolean {
+  static read(
+    configPathName: string,
+  ): TInjectionConfig | Partial<TInjectionConfig> {
     try {
-      return existsSync(filePathName);
+      return yaml.load(
+        replaceEnvVars(readFileSync(configPathName, 'utf8')),
+      ) as TInjectionConfig;
     } catch (err) {
-      console.error(err);
-      return false;
+      logger.error('And error happened while reading config: ' + err.message);
+      return {} as Partial<TInjectionConfig>;
     }
-  }
-
-  static config(options?: TConfigModuleOptions): TInjectionConfig {
-    if (!CONFIG) {
-      ConfigLoader.load(options);
-    }
-
-    return CONFIG;
   }
 }

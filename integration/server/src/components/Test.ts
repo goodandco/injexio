@@ -1,10 +1,10 @@
 import { Base } from '@injexio/core';
 
-const Wait = (ms) => new Promise((r) => setTimeout(r, ms));
-export default class Test extends Base {
+const Wait = ms => new Promise(r => setTimeout(r, ms));
+export class Test extends Base {
   async init(): Promise<void> {
     await super.init();
-    await Wait(10000);
+    await Wait(500);
     this.listen();
   }
 

@@ -1,14 +1,18 @@
 import { TDependency, TInjectionConfig } from './types';
 import { IBase } from './interfaces';
+import { getLogger, Logger } from 'log4js';
+
+const logger = getLogger(`[Injector]`);
 
 const STATUS_DONE = 'done';
 const STATUS_IN_PROGRESS = 'in_progress';
 
 export class DependencyInjector<TMainComponent extends IBase> {
-  constructor(private config: TInjectionConfig) {
-  }
+  constructor(private config: TInjectionConfig) {}
 
-  static async create<TMainComponent extends IBase>(config: TInjectionConfig): Promise<TMainComponent> {
+  static async create<TMainComponent extends IBase>(
+    config: TInjectionConfig,
+  ): Promise<TMainComponent> {
     return new DependencyInjector<TMainComponent>(config).init();
   }
 
@@ -16,12 +20,17 @@ export class DependencyInjector<TMainComponent extends IBase> {
     return new Promise<TMainComponent>(async (resolve, reject) => {
       let rejected = false;
       let done = false;
+      const initialTimeout = this.config.initialTimeout || 1000;
       setTimeout(() => {
         if (!done) {
           rejected = true;
-          reject(new Error('Initial timeout'));
+          reject(
+            new Error(
+              `Initial timeout for ${initialTimeout} ms has been exceeded.`,
+            ),
+          );
         }
-      }, this.config.initialTimeout);
+      }, initialTimeout);
       const entryPointName = this.config.initialDependency;
       const result = await this.initComponent(entryPointName);
       done = true;
@@ -29,8 +38,6 @@ export class DependencyInjector<TMainComponent extends IBase> {
         resolve(result as TMainComponent);
       }
     });
-
-
   }
 
   async initComponent(dependencyName: string): Promise<IBase> {
@@ -50,17 +57,19 @@ export class DependencyInjector<TMainComponent extends IBase> {
     dependency.status = STATUS_IN_PROGRESS;
 
     const dependencies = await Promise.all(
-      (dependency.dependencies ?? []).map((d) => this.initComponent(d)),
+      (dependency.dependencies ?? []).map(d => this.initComponent(d)),
     );
     const DependencyClass = this.config.classMap[dependency.className];
     const deps = dependencies;
-    const args = (dependency.arguments ?? []);
-    const instance = new DependencyClass(
-      ...deps,
-      ...args,
-    );
-
+    const args = dependency.arguments ?? [];
+    const instance = new DependencyClass(...deps, ...args);
+    if (instance.init === undefined) {
+      throw new Error(
+        `The dependency "${dependency.id}" does not have init method.`,
+      );
+    }
     await instance.init();
+    logger.info(`Dependency ${dependency.id} has been inited`);
 
     // eslint-disable-next-line no-param-reassign
     dependency.instance = instance;
@@ -72,7 +81,7 @@ export class DependencyInjector<TMainComponent extends IBase> {
 
   findDependencyByName(componentName: string): TDependency {
     const result = this.config.dependencies.find(
-      (dependency) => dependency.id === componentName,
+      dependency => dependency.id === componentName,
     );
 
     if (!result) {
