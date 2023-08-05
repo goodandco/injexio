@@ -1,5 +1,4 @@
 import { IServiceData, ServiceData } from '@injexio/http';
-import { Base } from '@injexio/core';
 
 export class CollectRequestDataGetList
   extends ServiceData<string>

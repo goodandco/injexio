@@ -28,7 +28,7 @@
     "prebuild": "npm run clean",
     "build:prod": "tsc -b -v packages",
     "prebuild:prod": "npm run clean",
-    "build:integration": "tsc -b -v integration ./tsconfig.spec.json",
+    "build:integration": "tsc -b -v integration/* ./tsconfig.spec.json",
     "prebuild:integration": "npm run clean",
     "clean": "tsc -b --clean packages",
     "changelog": "lerna-changelog",
@@ -39,11 +39,11 @@
     "format": "prettier \"**/*.ts\" \"packages/**/*.json\" --ignore-path ./.prettierignore --write && git status",
     "test": "mocha packages/**/*.spec.ts",
     "test:integration": "mocha \"integration/*/{,!(node_modules)/**/}/*.spec.ts\"",
-    "publish": "npm run build:prod && ./node_modules/.bin/lerna publish --force-publish --no-private",
+    "publish": "npm run build:prod && ./node_modules/.bin/lerna publish --force-publish --no-private --yes",
     "prepublishOnly": "npm run changelog | pbcopy",
-    "publish:beta": "npm run build:prod && ./node_modules/.bin/lerna publish --force-publish --canary --preid beta --no-private --yes --registry https://registry.npmjs.org/",
-    "publish:next": "npm run build:prod && ./node_modules/.bin/lerna publish --canary --preid next --no-private",
-    "publish:rc": "npm run build:prod && ./node_modules/.bin/lerna publish --canary --preid rc --no-private"
+    "publish:beta": "npm run build:prod && ./node_modules/.bin/lerna publish --canary --preid beta --no-private --yes",
+    "publish:next": "npm run build:prod && ./node_modules/.bin/lerna publish --canary --preid next --no-private --yes",
+    "publish:rc": "npm run build:prod && ./node_modules/.bin/lerna publish --canary --preid rc --no-private --yes"
   },
   "dependencies": {
     "js-yaml": "^4.1.0",
