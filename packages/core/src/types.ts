@@ -1,18 +1,30 @@
 import { IBase } from './interfaces';
 
 export type TInjectionConfig = {
-  classMap?: Record<string, any>;
   initialDependency: string;
   initialTimeout: number;
+  rootDir?: string;
   dependencies: Array<TDependency>;
 };
 
 export type TDependency = {
   id: string;
-  className?: any;
-  dependencies: Array<string>;
-  arguments: Array<any>;
-  status?: 'in_progress' | 'done' | 'error';
+  className: any;
+  isDefault?: boolean;
+  path: string;
+  dependencies?: Array<string>;
+  arguments?: Array<any>;
+};
+
+export enum TInitStatus {
+  IN_PROGRESS = 'IN_PROGRESS',
+  DONE = 'DONE',
+  ERROR = 'ERROR',
+}
+
+export type TDependencyInit = {
+  dependency: TDependency;
+  status: TInitStatus;
   instance?: IBase;
 };
 

@@ -1,0 +1,20 @@
+{
+  "disableClustering": true,
+  "appenders": {
+    "console": {
+      "type": "console",
+      "layout": {
+        "type": "pattern",
+        "pattern": "%d{ISO8601} %-5p %c - %m"
+      }
+    }
+  },
+  "categories": {
+    "default": {
+      "appenders": [
+        "console"
+      ],
+      "level": "WARN"
+    }
+  }
+}

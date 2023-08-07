@@ -27,7 +27,7 @@ export interface IRoute<TRouter> extends IBase {
   getRoute(): string;
 }
 
-export interface IServiceData<T> {
+export interface IServiceData<T> extends IBase {
   find<TSearch>(payload: TSearch): Promise<Array<T>>;
 
   find<TSearch>(payload: TSearch, ...args: Array<any>): Promise<Array<T>>;
@@ -37,7 +37,7 @@ export interface IServiceData<T> {
   findOne<TSearch>(payload: TSearch, ...args: Array<any>): Promise<T | null>;
 }
 
-export interface IServiceResponse<TResponseData> {
+export interface IServiceResponse<TResponseData> extends IBase {
   ok(response: Response<TResponseData>, payload: any): void;
 
   error(response: Response, error: Error): void;
