@@ -1,0 +1,67 @@
+initialDependency: server
+initialTimeout: 10000
+
+dependencies:
+  - id: server
+    className: ExpressServer
+    path: '@injexio/http'
+    dependencies:
+      - Middlewares
+    arguments:
+      - testMode: true
+        port: 3000
+        timeout: 10000
+  - id: Middlewares
+    className: DependencyList
+    path: '@injexio/core'
+    dependencies:
+      - Middleware.Router
+  - id: Middleware.Router
+    className: RouterExpress
+    path: '@injexio/http'
+    dependencies:
+      - Controllers
+  - id: Controllers
+    className: DependencyList
+    path: '@injexio/core'
+    dependencies:
+      - Controller.Books
+  - id: Controller.Books
+    className: ControllerREST
+    path: '@injexio/http'
+    dependencies:
+      - Controller.Books.Middlewares
+      - Controller.Books.Routes
+    arguments:
+      - path: '/books'
+  - id: Controller.Books.Routes
+    className: DependencyList
+    path: '@injexio/core'
+    dependencies:
+      - Route.Books.GetList
+  - id: Route.Books.GetList
+    className: RouteRESTGetEntityList
+    path: '@injexio/http'
+    dependencies:
+      - Route.Books.GetList.Middlewares
+      - Service.REST.CollectRequestData.GetList
+      - Service.Data.Books
+      - Service.REST.Response.List
+    arguments:
+      - path: '/'
+  - id: Controller.Books.Middlewares
+    className: DependencyList
+    path: '@injexio/core'
+  - id: Route.Books.GetList.Middlewares
+    className: DependencyList
+    path: '@injexio/core'
+  - id: Service.REST.CollectRequestData.GetList
+    className: CollectRequestDataGetList
+    path: './src/services/CollectRequestDataGetList'
+  - id: Service.Data.Books
+    className: ServiceDataBooks
+    path: './src/services/ServiceDataBooks'
+  - id: Service.REST.Response.List
+    className: ResponseService
+    path: '@injexio/http'
+

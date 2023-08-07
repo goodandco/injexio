@@ -3,53 +3,6 @@ initialTimeout: 15000
 
 dependencies:
   - id: server
-    className: Component.Server
-    dependencies:
-      - Middlewares
-    arguments:
-      - testMode: true
-        port: 3000
-        timeout: 10000
-  - id: Middlewares
-    className: Component.DependencyList
-    dependencies:
-      - Middleware.Router
-  - id: Middleware.Router
-    className: Middleware.Router
-    dependencies:
-      - Controllers
-  - id: Controllers
-    className: Component.DependencyList
-    dependencies:
-      - Controller.Books
-  - id: Controller.Books
-    className: Controller.REST
-    dependencies:
-      - Controller.Books.Middlewares
-      - Controller.Books.Routes
-    arguments:
-      - path: '/books'
-  - id: Controller.Books.Routes
-    className: Component.DependencyList
-    dependencies:
-      - Route.Books.GetList
-  - id: Route.Books.GetList
-    className: Route.Books.GetList
-    dependencies:
-      - Route.Books.GetList.Middlewares
-      - Service.REST.CollectRequestData.GetList
-      - Service.Data.Books
-      - Service.REST.Response.List
-    arguments:
-      - path: '/'
-  - id: Controller.Books.Middlewares
-    className: Component.DependencyList
-  - id: Route.Books.GetList.Middlewares
-    className: Component.DependencyList
-  - id: Service.REST.CollectRequestData.GetList
-    className: Service.REST.CollectRequestData.GetList
-  - id: Service.Data.Books
-    className: Service.Data.Books
-  - id: Service.REST.Response.List
-    className: Service.REST.Response.List
+    className: ResponseService
+    path: '../../dist/packages/http/src/server-express/services/response'
 
