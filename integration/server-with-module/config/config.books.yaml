@@ -1,0 +1,25 @@
+dependencies:
+  - id: server
+    className: ExpressServer
+    path: '@injexio/http'
+    dependencies:
+      - Middlewares
+    arguments:
+      - testMode: true
+        port: 3000
+        timeout: 14000
+  - id: Middlewares
+    className: DependencyList
+    path: '@injexio/core'
+    dependencies:
+      - Middleware.Router
+  - id: Middleware.Router
+    className: RouterExpress
+    path: '@injexio/http'
+    dependencies:
+      - Controllers
+  - id: Controllers
+    className: DependencyList
+    path: '@injexio/core'
+    dependencies: [ ]
+
