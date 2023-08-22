@@ -80,11 +80,11 @@ export function deepMerge(...objects) {
   return deepMerge(result, ...objects);
 }
 
-export function buildPath(fileName: string): string {
+export function buildPath(fileName: string, rootDir?: string): string {
   if (fileName[0] === '/') {
     return fileName;
   }
-  const baseDir = global.__baseDir || './';
+  const baseDir = rootDir || global.__baseDir || './';
   return path.join(baseDir, fileName);
 }
 

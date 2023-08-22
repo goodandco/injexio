@@ -3,6 +3,7 @@ import { IBase } from './interfaces';
 export type TInjectionConfig = {
   initialDependency: string;
   initialTimeout: number;
+  use?: Array<string>;
   rootDir?: string;
   dependencies: Array<TDependency>;
 };
@@ -29,6 +30,7 @@ export type TDependencyInit = {
 };
 
 export type TConfigModuleOptions = {
+  rootDir?: string;
   configPath?: string;
   configNameList?: Array<string>;
 };
