@@ -90,8 +90,8 @@ importers:
   packages/http:
     dependencies:
       '@injexio/core':
-        specifier: ^0.0.1-beta.8
-        version: 0.0.1-beta.8
+        specifier: file:../core
+        version: file:packages/core
       express:
         specifier: ^4.18.2
         version: 4.18.2
@@ -241,18 +241,6 @@ packages:
       }
     engines: { node: '>=6.9.0' }
     dev: true
-
-  /@injexio/core@0.0.1-beta.8:
-    resolution:
-      {
-        integrity: sha512-l9zOtrKjX8JF7ii2QMQdbHSwjyYW2oIYPlAPs5QmKghNT3y1IExM3DpEA477AS/0GKnn5i1NB37PtuFUQlSMjw==,
-      }
-    dependencies:
-      js-yaml: 4.1.0
-      log4js: 6.9.1
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
 
   /@isaacs/cliui@8.0.2:
     resolution:
@@ -8862,3 +8850,13 @@ packages:
       }
     engines: { node: '>=10' }
     dev: true
+
+  file:packages/core:
+    resolution: { directory: packages/core, type: directory }
+    name: '@injexio/core'
+    dependencies:
+      js-yaml: 4.1.0
+      log4js: 6.9.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
