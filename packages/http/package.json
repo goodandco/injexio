@@ -1,6 +1,6 @@
 {
   "name": "@injexio/http",
-  "version": "2.0.1",
+  "version": "2.0.2-beta.0+b36bc2a",
   "description": "HTTP package for @injexio",
   "author": "Oleksandr Hudenko <oleksandr.hudenko@gmail.com>",
   "license": "MIT",
@@ -24,5 +24,6 @@
   },
   "peerDependencies": {
     "@injexio/core": "file:../core"
-  }
+  },
+  "gitHead": "b36bc2a8a9fa5cd96d4a27e8190b8a42cccdf807"
 }
