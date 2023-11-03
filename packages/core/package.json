@@ -1,6 +1,6 @@
 {
   "name": "@injexio/core",
-  "version": "2.0.1",
+  "version": "2.0.2-beta.0+b36bc2a",
   "description": "Core package for @injexio",
   "author": "Oleksandr Hudenko <oleksandr.hudenko@gmail.com>",
   "license": "MIT",

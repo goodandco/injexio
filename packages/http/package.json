@@ -25,5 +25,5 @@
   "peerDependencies": {
     "@injexio/core": "file:../core"
   },
-  "gitHead": "c15ce628e17130bd36e0619e3b46b2ff5b651e56"
+  "gitHead": "e25167dc4e8eb1a7fc5f2e320265344dae5d3c9d"
 }
