@@ -21,6 +21,5 @@
   "dependencies": {
     "js-yaml": "^4.1.0",
     "log4js": "^6.9.1"
-  },
-  "gitHead": "ef93d99a11caae94cb884039fb5092714243b8cf"
+  }
 }
