@@ -46,7 +46,6 @@ dist
 build/config\.gypi
 
 .npmrc
-pnpm-lock.yaml
 
 
 # log
