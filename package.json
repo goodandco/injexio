@@ -39,7 +39,7 @@
     "format": "prettier \"**/*.ts\" \"packages/**/*.json\" --ignore-path ./.prettierignore --write && git status",
     "test": "mocha packages/**/*.spec.ts",
     "test:integration": "mocha \"integration/*/{,!(node_modules)/**/}/*.spec.ts\" --timeout=10000",
-    "publish": "npm run build:prod && ./node_modules/.bin/lerna publish --no-private --yes",
+    "publish": "npm run build:prod && ./node_modules/.bin/lerna publish from-package --no-private --yes",
     "prepublishOnly": "npm run changelog | pbcopy",
     "publish:beta": "npm run build:prod && ./node_modules/.bin/lerna publish from-package --canary --preid beta --no-private --yes",
     "publish:next": "npm run build:prod && ./node_modules/.bin/lerna publish --canary --preid next --no-private --yes",
