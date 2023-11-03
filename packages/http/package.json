@@ -23,6 +23,6 @@
     "express": "^4.18.2"
   },
   "peerDependencies": {
-    "@injexio/core": "^0.0.1-beta.8"
+    "@injexio/core": "file:../core"
   }
 }
