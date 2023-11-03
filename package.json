@@ -1,6 +1,6 @@
 {
   "name": "injexio",
-  "version": "2.0.2",
+  "version": "0.0.0",
   "description": "Framework based on Dependency Injection, allowed to run your components with just declarative way",
   "author": "Oleksandr Hudenko <oleksandr.hudenko@gmail.com>",
   "license": "MIT",
