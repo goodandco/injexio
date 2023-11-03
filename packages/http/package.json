@@ -1,6 +1,6 @@
 {
   "name": "@injexio/http",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "HTTP package for @injexio",
   "author": "Oleksandr Hudenko <oleksandr.hudenko@gmail.com>",
   "license": "MIT",
